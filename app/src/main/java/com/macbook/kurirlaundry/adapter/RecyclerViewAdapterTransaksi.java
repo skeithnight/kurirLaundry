@@ -37,9 +37,9 @@ public class RecyclerViewAdapterTransaksi extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(final RecyclerViewAdapterTransaksi.MyViewHolder holder, int position) {
         final Transaksi Transaksi = TransaksiArrayList.get(position);
 
-        holder.idPesanan.setText(Transaksi.getId() == null ? "null" : Transaksi.getId());
+        holder.idPesanan.setText(Transaksi.getCustomer() == null ? "null" : Transaksi.getCustomer().getNama());
         holder.tanggal_masuk.setText(Transaksi.getWaktuPesan() == null ? "null" : getDate(Transaksi.getWaktuPesan()));
-        holder.toko.setText(Transaksi.getCabang().getNama() == null ? "null" : Transaksi.getCabang().getNama());
+        holder.toko.setText(Transaksi.getCabang() == null ? "null" : Transaksi.getCabang().getNama());
         holder.status.setText(Transaksi.getStatus() == null ? "null" : Transaksi.getStatus());
 
         setLogoStatus(holder, Transaksi.getStatus());

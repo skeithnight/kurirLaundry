@@ -11,4 +11,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <string name="google_maps_key">AIzaSyBXNlJfQpqG8Bv_Wx5aEClWWwjI726P6TM</string>
+
+    <string name="format_layanan_laundry">%s | %s/%s | %d/pcs</string>
 </resources>

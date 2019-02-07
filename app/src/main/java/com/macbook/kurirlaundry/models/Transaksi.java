@@ -41,7 +41,7 @@ public class Transaksi {
     private Long waktuSelesai;
     @SerializedName("menuLaundry")
     @Expose
-    private List<MenuLaundry> menuLaundry = null;
+    private List<Service> menuLaundry = null;
     @SerializedName("item")
     @Expose
     private List<Item> item = null;
@@ -52,7 +52,7 @@ public class Transaksi {
     public Transaksi() {
     }
 
-    public Transaksi(Customer customer, String alamat, Double latitude, Double longitude, Long waktuPesan, List<MenuLaundry> menuLaundry, String status) {
+    public Transaksi(Customer customer, String alamat, Double latitude, Double longitude, Long waktuPesan, List<Service> menuLaundry, String status) {
         this.customer = customer;
         this.alamat = alamat;
         this.latitude = latitude;
@@ -150,11 +150,11 @@ public class Transaksi {
         this.waktuSelesai = waktuSelesai;
     }
 
-    public List<MenuLaundry> getMenuLaundry() {
+    public List<Service> getMenuLaundry() {
         return menuLaundry;
     }
 
-    public void setMenuLaundry(List<MenuLaundry> menuLaundry) {
+    public void setMenuLaundry(List<Service> menuLaundry) {
         this.menuLaundry = menuLaundry;
     }
 

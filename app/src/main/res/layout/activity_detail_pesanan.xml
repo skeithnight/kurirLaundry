@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.DetailPesananActivity"
-        android:fillViewport="true">
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".activities.DetailPesananActivity">
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true"
+                android:layout_above="@id/ll_tagihan">
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:layout_above="@+id/btn_detail_pesanan" android:orientation="vertical">
+                      android:orientation="vertical">
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content" android:layout_margin="5dp"
+                                                app:cardElevation="5dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="vertical" android:padding="5dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:text="Lokasi Jemput" android:textStyle="bold" android:textSize="18sp"
+                              android:layout_marginBottom="5dp"/>
+                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                              xmlns:tools="http://schemas.android.com/tools"
+                              android:id="@+id/map"
+                              android:name="com.google.android.gms.maps.SupportMapFragment"
+                              android:layout_width="match_parent"
+                              android:layout_height="250dp"
+                              tools:context="com.example.mapwithmarker.MapsMarkerActivity"/>
+                    <Button android:id="@+id/btn_navigate" android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp" android:text="Navigate"
+                            android:background="@android:color/holo_green_light"
+                            android:textColor="@android:color/white" android:visibility="visible"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView android:layout_width="match_parent"
                                                 android:layout_height="wrap_content" android:layout_margin="5dp"
                                                 app:cardElevation="5dp">
@@ -78,12 +101,33 @@
 
             </android.support.v7.widget.CardView>
         </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:orientation="vertical" android:id="@+id/ll_tagihan">
+        <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" android:layout_margin="5dp"
+                                            app:cardElevation="5dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:layout_margin="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:text="Total Tagihan"
+                          android:textAlignment="textStart" android:gravity="center" android:layout_weight="1"
+                          android:textSize="24sp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:id="@+id/total_tagihan"
+                          android:text="Rp. 600.0000" android:textAlignment="textEnd" android:gravity="center"
+                          android:textStyle="bold"
+                          android:layout_weight="1"
+                          android:textSize="18sp"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <Button android:id="@+id/btn_detail_pesanan" android:layout_width="match_parent"
                 android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp" android:text="Cancel" android:layout_alignParentBottom="true"
                 android:background="@android:color/holo_red_light" android:textColor="@android:color/white"/>
-    </RelativeLayout>
-
-</ScrollView>
+    </LinearLayout>
+</RelativeLayout>
