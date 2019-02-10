@@ -1,14 +1,20 @@
 package com.macbook.kurirlaundry;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.ButterKnife;
+import com.macbook.kurirlaundry.activities.LoginActivity;
 import com.macbook.kurirlaundry.adapter.RecyclerViewAdapterTransaksi;
 import com.macbook.kurirlaundry.api.APIClient;
 import com.macbook.kurirlaundry.api.DataService;
@@ -20,16 +26,19 @@ import retrofit2.Response;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
+    static String TAG = "Testing";
     String token;
     String idUser;
-
-    static String TAG = "Testing";
-    private TampilDialog tampilDialog;
     //    SharedPreferences
     SharedPreferences mSPLogin;
     // RecyclerView
     RecyclerView recyclerView;
-    
+    //    Data Menu Pesanan
+    ArrayList<Transaksi> transaksiArrayList = new ArrayList<Transaksi>();
+    private TampilDialog tampilDialog;
+    private Toolbar mTopToolbar;
+    private RecyclerViewAdapterTransaksi mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +49,40 @@ public class HomeActivity extends AppCompatActivity {
         // show loading
         tampilDialog.showLoading();
 
+
+        mTopToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(mTopToolbar);
+
         getData();
     }
-    //    Data Menu Pesanan
-    ArrayList<Transaksi> transaksiArrayList = new ArrayList<Transaksi>();
-    private RecyclerViewAdapterTransaksi mAdapter;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_favorite) {
+
+            initializeSP();
+            mSPLogin.edit().clear().commit();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeSP() {
+        mSPLogin = getSharedPreferences("Login", Context.MODE_PRIVATE);
+    }
 
     private void getData() {
         mSPLogin = this.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -70,8 +108,8 @@ public class HomeActivity extends AppCompatActivity {
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
-                    }else {
-                        tampilDialog.showDialog("Failed", response.message(),"");
+                    } else {
+                        tampilDialog.showDialog("Failed", response.message(), "");
                     }
 
                 }
@@ -79,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ArrayList<Transaksi>> call, Throwable t) {
                     tampilDialog.dismissLoading();
-                    tampilDialog.showDialog("Failed", t.getMessage(),"");
+                    tampilDialog.showDialog("Failed", t.getMessage(), "");
                 }
             });
         }
